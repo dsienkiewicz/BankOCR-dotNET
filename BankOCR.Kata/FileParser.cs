@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic;
-
 namespace BankOCR.Kata;
+
 public class FileParser
 {
     private readonly IReadOnlyCollection<int> _digitPositions = new[] { 0, 3, 6, 9, 12, 15, 18, 21, 24 };

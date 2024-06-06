@@ -1,5 +1,4 @@
 ﻿using System.CommandLine;
-using System.Text;
 
 namespace BankOCR.Kata;
 
