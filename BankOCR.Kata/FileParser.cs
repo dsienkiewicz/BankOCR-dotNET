@@ -26,9 +26,9 @@ public class FileParser
                 foreach (var offset in _digitPositions)
                 {
                     accountNumberDigits.Add(new AccountNumberDigitInput(
-                        (AccountNumberPart)topPart.Substring(offset, _numberLength),
-                        (AccountNumberPart)middlePart.Substring(offset, _numberLength),
-                        (AccountNumberPart)bottomPart.Substring(offset, _numberLength)
+                        topPart.Substring(offset, _numberLength),
+                        middlePart.Substring(offset, _numberLength),
+                        bottomPart.Substring(offset, _numberLength)
                     ));
                 }
 

@@ -11,72 +11,72 @@ public class AccountNumberParser
     {
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart('|', ' ', '|'),
-                new AccountNumberPart('|', '_', '|')),
+                " _ ",
+                "| |",
+                "|_|"),
             new AccountNumberDigit(0)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', ' ', ' '),
-                new AccountNumberPart(' ', ' ', '|'),
-                new AccountNumberPart(' ', ' ', '|')),
+                "   ",
+                "  |",
+                "  |"),
             new AccountNumberDigit(1)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart(' ', '_', '|'),
-                new AccountNumberPart('|', '_', ' ')),
+                " _ ",
+                " _|",
+                "|_ "),
             new AccountNumberDigit(2)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart(' ', '_', '|'),
-                new AccountNumberPart(' ', '_', '|')),
+                " _ ",
+                " _|",
+                " _|"),
             new AccountNumberDigit(3)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', ' ', ' '),
-                new AccountNumberPart('|', '_', '|'),
-                new AccountNumberPart(' ', ' ', '|')),
+                "   ",
+                "|_|",
+                "  |"),
             new AccountNumberDigit(4)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart('|', '_', ' '),
-                new AccountNumberPart(' ', '_', '|')),
+                " _ ",
+                "|_ ",
+                " _|"),
             new AccountNumberDigit(5)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart('|', '_', ' '),
-                new AccountNumberPart('|', '_', '|')),
+                " _ ",
+                "|_ ",
+                "|_|"),
             new AccountNumberDigit(6)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart(' ', ' ', '|'),
-                new AccountNumberPart(' ', ' ', '|')),
+                " _ ",
+                "  |",
+                "  |"),
             new AccountNumberDigit(7)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart('|', '_', '|'),
-                new AccountNumberPart('|', '_', '|')),
+                " _ ",
+                "|_|",
+                "|_|"),
             new AccountNumberDigit(8)
         },
         {
             new AccountNumberDigitInput(
-                new AccountNumberPart(' ', '_', ' '),
-                new AccountNumberPart('|', '_', '|'),
-                new AccountNumberPart(' ', '_', '|')),
+                " _ ",
+                "|_|",
+                " _|"),
             new AccountNumberDigit(9)
         }
     };
@@ -86,7 +86,7 @@ public class AccountNumberParser
         return new AccountNumber(numberInputs.Select(Parse).ToList());
     }
 
-    private AccountNumberDigit Parse(AccountNumberDigitInput numberInput)
+    public AccountNumberDigit Parse(AccountNumberDigitInput numberInput)
     {
         if (_digitMap.TryGetValue(numberInput, out var digit))
         {

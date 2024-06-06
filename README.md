@@ -12,5 +12,5 @@ dotnet test BankOCR.Kata.Tests/BankOCR.Kata.Tests.csproj
 
 To use this solution as a CLI that takes input and prints the result, run:
 ```
-dotnet run --project ./BankOCR.Kata/BankOCR.Kata.csproj put-your-input-line-here
+dotnet run --project ./BankOCR.Kata/BankOCR.Kata.csproj convert --input ./BankOCR.Kata.Tests/samples/digits.txt --output ./BankOCR.Kata.Tests/samples/output.txt
 ```

@@ -5,16 +5,29 @@ using System.Threading.Tasks;
 
 namespace BankOCR.Kata;
 
-public record AccountNumberPart(char First, char Second, char Third)
+public record AccountNumberPart
 {
-    public static explicit operator AccountNumberPart(string input)
+    public char First { get; init; }
+    public char Second { get; init; }
+    public char Third { get; init; }
+
+    public AccountNumberPart(char first, char second, char third)
     {
-        if (input.Length != 3)
+        First = first;
+        Second = second;
+        Third = third;
+    }
+
+    public AccountNumberPart(string parts)
+    {
+        if (parts.Length != 3)
         {
             throw new ArgumentOutOfRangeException("Input must be exactly 3 characters long.");
         }
 
-        return new AccountNumberPart(input[0], input[1], input[2]);
+        First = parts[0];
+        Second = parts[1];
+        Third = parts[2];
     }
 
     public override string ToString()
