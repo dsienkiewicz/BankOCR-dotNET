@@ -25,7 +25,8 @@ public enum AccountNumberValidationResult
 {
     Valid = 0,
     Invalid,
-    Illegible
+    Illegible,
+    Ambiguous
 }
 
 public static class AccountNumberValidationResultFormatter
@@ -37,6 +38,7 @@ public static class AccountNumberValidationResultFormatter
             AccountNumberValidationResult.Valid => "",
             AccountNumberValidationResult.Invalid => "ERR",
             AccountNumberValidationResult.Illegible => "ILL",
+            AccountNumberValidationResult.Ambiguous => "AMB",
             _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
         };
     }

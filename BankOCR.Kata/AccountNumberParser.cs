@@ -88,6 +88,6 @@ public class AccountNumberParser
             return digit;
         }
 
-        return AccountNumberDigit.Unknown;
+        return AccountNumberDigit.Unknown(numberInput);
     }
 }
