@@ -38,11 +38,12 @@ class Program
   static public async Task ConvertAccountNumbers(string inputFilePath, string outputFilePath)
   {
     var fileParser = new FileParser();
+    var accountNumberValidator = new AccountNumberValidator();
     var inputLines = await File.ReadAllLinesAsync(inputFilePath);
 
-    var accountNumberDigits = fileParser.Parse(inputLines);
-    var outputLines = accountNumberDigits
-      .Select(accountNumberDigit => accountNumberDigit.ToString());
+    var accountNumbers = fileParser.Parse(inputLines);
+    var outputLines = accountNumbers
+      .Select(accountNumber => $"{accountNumber} {accountNumberValidator.Validate(accountNumber).Format()}");
 
     await File.WriteAllLinesAsync(outputFilePath, outputLines);
   }
