@@ -1,5 +1,3 @@
-using BankOCR.Kata;
-
 namespace BankOCR.Kata.Tests;
 
 public class AccountNumberParserTest
