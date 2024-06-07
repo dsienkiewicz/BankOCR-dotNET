@@ -53,11 +53,38 @@ public class AccountNumberParserTest
         "|_|",
         " _|" },
         9)]
-    public void Parse_WhenGivenAnAccountNumberDigitInput_ReturnsTheExpectedAccountNumberDigit(string[] input, int expectedDigit)
+    public void Parse_WhenGivenAnAccountNumberDigitAsString_ReturnsTheExpectedAccountNumberDigit(string[] inputs, int expectedDigit)
     {
         var sut = new AccountNumberParser();
-        var result = sut.Parse(new AccountNumberDigitInput(input[0], input[1], input[2]));
+        var result = sut.Parse(new AccountNumberDigitInput(inputs[0], inputs[1], inputs[2]));
 
         Assert.Equal(expectedDigit, result.Digit);
+    }
+
+    [Theory]
+    [InlineData(new[] {
+        " _  _  _  _  _  _  _  _  _ ",
+        "| || || || || || || || || |",
+        "|_||_||_||_||_||_||_||_||_|"
+        },
+        new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 })]
+    [InlineData(new[] {
+        "                           ",
+        "  |  |  |  |  |  |  |  |  |",
+        "  |  |  |  |  |  |  |  |  |"
+        },
+        new[] { 1, 1, 1, 1, 1, 1, 1, 1, 1 })]
+    [InlineData(new[] {
+        " _     _  _  _  _  _  _    ",
+        "| || || || || || || ||_   |",
+        "|_||_||_||_||_||_||_| _|  |"
+        },
+        new[] { 0, -1, 0, 0, 0, 0, 0, 5, 1 })]
+    public void Parse_WhenGivenAnAccountNumberAsString_ReturnsTheExpectedAccountNumber(string[] inputs, int[] expectedAccountNumber)
+    {
+        var sut = new AccountNumberParser();
+        var result = sut.Parse(inputs);
+
+        Assert.Equal(expectedAccountNumber, result.Digits.Select(d => d.Digit));
     }
 }

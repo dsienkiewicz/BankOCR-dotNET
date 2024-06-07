@@ -2,88 +2,32 @@ namespace BankOCR.Kata;
 
 public class AccountNumberParser
 {
-    private readonly IReadOnlyDictionary<AccountNumberDigitInput, AccountNumberDigit> _digitMap = new Dictionary<AccountNumberDigitInput, AccountNumberDigit>
-    {
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                "| |",
-                "|_|"),
-            new AccountNumberDigit(0)
-        },
-        {
-            new AccountNumberDigitInput(
-                "   ",
-                "  |",
-                "  |"),
-            new AccountNumberDigit(1)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                " _|",
-                "|_ "),
-            new AccountNumberDigit(2)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                " _|",
-                " _|"),
-            new AccountNumberDigit(3)
-        },
-        {
-            new AccountNumberDigitInput(
-                "   ",
-                "|_|",
-                "  |"),
-            new AccountNumberDigit(4)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                "|_ ",
-                " _|"),
-            new AccountNumberDigit(5)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                "|_ ",
-                "|_|"),
-            new AccountNumberDigit(6)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                "  |",
-                "  |"),
-            new AccountNumberDigit(7)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                "|_|",
-                "|_|"),
-            new AccountNumberDigit(8)
-        },
-        {
-            new AccountNumberDigitInput(
-                " _ ",
-                "|_|",
-                " _|"),
-            new AccountNumberDigit(9)
-        }
-    };
+    private readonly IReadOnlyCollection<int> _digitPositions = new[] { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
+    private readonly int _numberLength = 3;
 
-    public AccountNumber Parse(IReadOnlyCollection<AccountNumberDigitInput> numberInputs)
+    public AccountNumber Parse(string[] numberInputs)
     {
-        return new AccountNumber(numberInputs.Select(Parse).ToList());
+        var accountNumberDigits = new List<AccountNumberDigitInput>();
+
+        var topPart = numberInputs.ElementAt(0);
+        var middlePart = numberInputs.ElementAt(1);
+        var bottomPart = numberInputs.ElementAt(2);
+
+        foreach (var offset in _digitPositions)
+        {
+            accountNumberDigits.Add(new AccountNumberDigitInput(
+                topPart.Substring(offset, _numberLength),
+                middlePart.Substring(offset, _numberLength),
+                bottomPart.Substring(offset, _numberLength)
+            ));
+        }
+
+        return new AccountNumber(accountNumberDigits.Select(Parse).ToList());
     }
 
     public AccountNumberDigit Parse(AccountNumberDigitInput numberInput)
     {
-        if (_digitMap.TryGetValue(numberInput, out var digit))
+        if (AccountNumberDigitSchema.DigitMap.TryGetValue(numberInput, out var digit))
         {
             return digit;
         }

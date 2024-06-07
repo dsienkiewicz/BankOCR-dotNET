@@ -2,11 +2,11 @@ namespace BankOCR.Kata;
 
 public record AccountNumberDigitInput
 {
-    public AccountNumberPart TopPart { get; init; }
-    public AccountNumberPart MiddlePart { get; init; }
-    public AccountNumberPart BottomPart { get; init; }
+    public AccountNumberPartInput TopPart { get; init; }
+    public AccountNumberPartInput MiddlePart { get; init; }
+    public AccountNumberPartInput BottomPart { get; init; }
 
-    public AccountNumberDigitInput(AccountNumberPart topPart, AccountNumberPart middlePart, AccountNumberPart bottomPart)
+    public AccountNumberDigitInput(AccountNumberPartInput topPart, AccountNumberPartInput middlePart, AccountNumberPartInput bottomPart)
     {
         TopPart = topPart ?? throw new ArgumentNullException(nameof(topPart));
         MiddlePart = middlePart ?? throw new ArgumentNullException(nameof(middlePart));
@@ -14,7 +14,18 @@ public record AccountNumberDigitInput
     }
 
     public AccountNumberDigitInput(string topPartLine, string middlePartLine, string bottomPartLine)
-    : this(new AccountNumberPart(topPartLine), new AccountNumberPart(middlePartLine), new AccountNumberPart(bottomPartLine))
+    : this(new AccountNumberPartInput(topPartLine), new AccountNumberPartInput(middlePartLine), new AccountNumberPartInput(bottomPartLine))
     {
+    }
+
+    public static IReadOnlyCollection<AccountNumberDigitInput> AllCombinations()
+    {
+        var partInputCombinations = AccountNumberPartInput.AllCombinations();
+
+        return partInputCombinations
+            .SelectMany(topPart => partInputCombinations
+                .SelectMany(middlePart => partInputCombinations
+                    .Select(bottomPart => new AccountNumberDigitInput(topPart, middlePart, bottomPart))))
+            .ToList();
     }
 }

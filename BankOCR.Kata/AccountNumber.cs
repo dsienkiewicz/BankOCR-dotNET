@@ -18,6 +18,11 @@ public record AccountNumber(IReadOnlyCollection<AccountNumberDigit> Digits)
         return string.Join("", Digits);
     }
 
+    /// <summary>
+    /// Parses a string input into an AccountNumber.
+    /// String should be made of 9 characters, each representing a digit.
+    /// In case a digit is illegible, it should be represented by a `?` character.
+    /// </summary>
     public static AccountNumber Parse(string input)
     {
         return new AccountNumber(
